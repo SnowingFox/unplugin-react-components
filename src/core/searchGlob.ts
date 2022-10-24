@@ -5,15 +5,15 @@ import type { BaseNode } from 'estree-walker'
 import { walk } from 'estree-walker'
 import type { Node } from '@babel/types'
 import type { Components, ComponentsContext } from '../types'
+import { slash } from './utils'
 
-export function searchGlob(): Components {
+export function searchGlob(rootPath: string): Components {
   const files = fg.sync(['**/**.tsx', '**/**.jsx'])
 
   const components: Components = new Set()
 
   for (const file of files) {
     const code = fs.readFileSync(file, { encoding: 'utf-8' })
-
     const program = parse(code, {
       sourceType: 'module',
       plugins: [
@@ -21,6 +21,7 @@ export function searchGlob(): Components {
         'jsx',
       ],
     }) as BaseNode
+
     walk(program, {
       enter(nodes) {
         const node = nodes as unknown as Node
@@ -105,8 +106,9 @@ export function searchGlob(): Components {
         if (name?.length) {
           components.add({
             name,
-            path: `/${file}`,
             type,
+            path: slash(`${rootPath}/${file}`),
+            relativePath: slash(file),
           })
         }
       },

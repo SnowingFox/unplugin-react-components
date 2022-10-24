@@ -10,7 +10,9 @@ export default defineConfig({
     react(),
     Components({
       rootDir: __dirname,
-      dts: true,
+      dts: {
+        rootPath: path.resolve(__dirname),
+      },
     }),
     Inspect(),
   ],

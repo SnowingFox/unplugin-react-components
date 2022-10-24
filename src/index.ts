@@ -1,28 +1,41 @@
 import { createUnplugin } from 'unplugin'
 import MagicString from 'magic-string'
-import type { Options, TransformOptions } from './types'
-import { transform } from './core/transform'
+import { createFilter } from '@rollup/pluginutils'
+import type { GenerateDtsOptions, Options, TransformOptions } from './types'
+import { transform } from './core/transformer'
 import { searchGlob } from './core/searchGlob'
 import { generateDts } from './core/generateDts'
+import { resolveOptions } from './core/utils'
 
 export default createUnplugin<Options>((options) => {
-  const searchGlobResult = searchGlob()
+  options = resolveOptions(options)
 
+  const filter = createFilter(
+    options.include || [/\.[j|t]sx$/],
+    options.exclude || [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/],
+  )
+
+  const searchGlobResult = searchGlob(options.rootDir!)
+  const dtsOptions = {
+    components: searchGlobResult,
+    filename: (options.dts as GenerateDtsOptions)?.filename || 'components',
+    rootPath: (options.dts as GenerateDtsOptions)?.rootPath || options.rootDir!,
+  }
   if (options.dts === true)
-    generateDts({ rootPath: options.rootDir, components: searchGlobResult })
+    generateDts({ ...dtsOptions })
   else if (typeof options.dts === 'object')
-    generateDts({ ...options.dts, components: searchGlobResult })
+    generateDts({ ...dtsOptions, ...options.dts })
 
   return {
     name: 'unplugin-react-components',
     transformInclude(id) {
-      return /\.[j|t]sx$/.test(id)
+      return filter(id)
     },
     async transform(code, id) {
       const context: TransformOptions = {
         code: new MagicString(code),
         components: searchGlobResult,
-        rootDir: options.rootDir,
+        rootDir: options.rootDir!,
         id,
       }
       return transform(context)
