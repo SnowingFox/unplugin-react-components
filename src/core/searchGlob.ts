@@ -63,7 +63,7 @@ export function searchGlob(): Components {
               <div>1</div>
           )
           export default A
-        */
+          */
           else if (node.declaration.type === 'Identifier') {
             const exportedName = node.declaration?.name
             const component = Array.from(components).find(item => item.name === exportedName)
@@ -74,6 +74,11 @@ export function searchGlob(): Components {
           }
         }
         else if (node.type === 'ExportNamedDeclaration') {
+          /*
+            export function A() {
+              return <div>1</div>
+            }
+          */
           if (
             node.declaration?.type === 'FunctionDeclaration'
             && node.declaration.body.type === 'BlockStatement'
@@ -96,11 +101,6 @@ export function searchGlob(): Components {
             }
           }
         }
-        /*
-        const A = () => (
-          <div>1</div>
-        )
-        * */
 
         if (name?.length) {
           components.add({
@@ -112,8 +112,6 @@ export function searchGlob(): Components {
       },
     })
   }
-
-  console.log(components)
 
   return new Set(Array.from(components).filter(item => item.type !== 'Declaration'))
 }
