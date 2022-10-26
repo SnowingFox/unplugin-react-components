@@ -15,7 +15,7 @@ export default createUnplugin<Options>((options) => {
     options.exclude || [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/],
   )
 
-  const searchGlobResult = searchGlob(options.rootDir!)
+  const searchGlobResult = searchGlob({ rootPath: (options.dts as any)?.rootPath || options.rootDir! })
   const dtsOptions = {
     components: searchGlobResult,
     filename: (options.dts as GenerateDtsOptions)?.filename || 'components',
@@ -36,6 +36,7 @@ export default createUnplugin<Options>((options) => {
         code: new MagicString(code),
         components: searchGlobResult,
         rootDir: options.rootDir!,
+        resolvers: options.resolvers!,
         id,
       }
       return transform(context)
