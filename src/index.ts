@@ -7,6 +7,12 @@ import { searchGlob } from './core/searchGlob'
 import { generateDts } from './core/generateDts'
 import { resolveOptions } from './core/utils'
 
+export * from './core/resolvers'
+export * from './core/generateDts'
+export * from './core/resolvers/index'
+export * from './core/searchGlob'
+export * from './core/transformer'
+
 export default createUnplugin<Options>((options) => {
   options = resolveOptions(options)
 
