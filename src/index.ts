@@ -13,7 +13,7 @@ export * from './core/resolvers/index'
 export * from './core/searchGlob'
 export * from './core/transformer'
 
-export default createUnplugin<Options>((options) => {
+export default createUnplugin<Options>((options = {}) => {
   options = resolveOptions(options)
 
   const filter = createFilter(
