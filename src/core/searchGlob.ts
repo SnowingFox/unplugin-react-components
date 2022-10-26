@@ -4,12 +4,16 @@ import { parse } from '@babel/parser'
 import type { BaseNode } from 'estree-walker'
 import { walk } from 'estree-walker'
 import type { Node } from '@babel/types'
-import type { Components, ComponentsContext } from '../types'
+import type { Components, ComponentsContext, SearchGlobOptions } from '../types'
 import { slash } from './utils'
 
-export function searchGlob(rootPath: string): Components {
-  const files = fg.sync(['**/**.tsx', '**/**.jsx'])
+export function searchGlob(options: SearchGlobOptions): Components {
+  const { rootPath } = options
 
+  const files = fg.sync(['**/**.tsx', '**/**.jsx'], {
+    ignore: ['node_modules'],
+    cwd: rootPath,
+  })
   const components: Components = new Set()
 
   for (const file of files) {
@@ -108,7 +112,6 @@ export function searchGlob(rootPath: string): Components {
             name,
             type,
             path: slash(`${rootPath}/${file}`),
-            relativePath: slash(file),
           })
         }
       },

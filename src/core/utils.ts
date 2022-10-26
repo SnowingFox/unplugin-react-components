@@ -1,6 +1,7 @@
-import type { ComponentsContext, ImportInfo, Options } from '../types'
+import type { ComponentsContext, ExportType, ImportInfo, Options } from '../types'
 
-export const isExportComponent = (component: ComponentsContext) => component.type === 'Export'
+export const isExportComponent = (component: ComponentsContext | ExportType) =>
+  typeof component === 'string' ? component === 'Export' : component.type === 'Export'
 
 /**
  * Replace backslash to slash
@@ -12,6 +13,8 @@ export function slash(str: string) {
 export function stringifyImport(info: ImportInfo | string) {
   if (typeof info === 'string')
     return `import '${info}'`
+  else if (info.name && info.as)
+    return `import { ${info.name} as ${info.as} } from '${info.from}'`
   else if (info.name)
     return `import { ${info.name} } from '${info.from}'`
   else
@@ -24,6 +27,7 @@ export function resolveOptions(options: Options = {}): Required<Options> {
     dts: false,
     include: [/\.[j|t]sx$/],
     exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/],
+    resolvers: options.resolvers || [],
     ...options,
   }
 }

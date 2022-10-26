@@ -13,20 +13,32 @@ export interface Options {
    * RegExp or glob to match files to NOT be transformed
    */
   exclude?: FilterPattern
+
+  /**
+   * Pass a custom function to resolve the component importing path from the component name.
+   *
+   */
+  resolvers?: Resolvers
 }
 
 export interface ImportInfo {
+  as?: string
   name?: string
   default?: string
   from: string
 }
 
+export type ExportType = 'Export' | 'ExportDefault'
+
 export interface ComponentsContext {
   name: string
   path: string
-  relativePath: string
-  type: 'Export' | 'ExportDefault' | 'Declaration'
+  type: ExportType | 'Declaration'
 }
+
+export type ResolverComponent = (componentName: string) => { name: string; from: string; type: ExportType }
+
+export type Resolvers = ResolverComponent[]
 
 export type Components = Set<ComponentsContext>
 
@@ -35,10 +47,15 @@ export interface TransformOptions {
   code: MagicString
   components: Components
   rootDir: string
+  resolvers: Resolvers
 }
 
 export interface GenerateDtsOptions {
   components: Components
   rootPath: string
   filename: string
+}
+
+export interface SearchGlobOptions {
+  rootPath: string
 }
