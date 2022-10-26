@@ -5,7 +5,7 @@
 ## Install
 
 ```bash
-npm i unplugin-react-components
+npm i unplugin-react-components -D
 ```
 
 <details>
