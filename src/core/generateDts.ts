@@ -4,8 +4,7 @@ import type { ComponentsContext, GenerateDtsOptions } from '../types'
 import { isExportComponent, slash } from './utils'
 
 function stringifyComponent(rootPath: string, component: ComponentsContext) {
-  const path = component.path
-  const related = `./${relative(rootPath, path)}`
+  const related = `./${relative(rootPath, component.path)}`
   return `typeof import('${slash(related).replace(/\.[tj]sx$/, '')}')['${isExportComponent(component) ? component.name : 'default'}']\n`
 }
 
