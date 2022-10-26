@@ -6,7 +6,7 @@ const reactComponentRE = /_jsxDEV\(([^"][^React\.]\w+)/g
 
 export async function transform(options: TransformOptions) {
   let index = 0
-  const { code, id, components, resolvers } = options
+  const { code, id, components, resolvers, local } = options
 
   const matches = Array.from(code.original.matchAll(reactComponentRE)).map(item => ({
     name: item[1],
@@ -44,21 +44,24 @@ export async function transform(options: TransformOptions) {
 
     importsName.push(name)
   }
+
   const resolversResult = await getResolversResult(resolvers)
 
   for (const matched of matches) {
-    resolversResult.forEach((resolver) => {
+    resolversResult?.forEach((resolver) => {
       resolver.forEach((item) => {
         if (item.name === matched.name)
-          resolveImports(item.name, item.type, item.from, matched.original)
+          resolveImports(item.originalName, item.type, item.from, matched.original)
       })
     })
 
-    const component = Array.from(components).find(item => item.name === matched.name)
-    if (!component)
-      continue
+    if (local) {
+      const component = Array.from(components).find(item => item.name === matched.name)
+      if (!component)
+        continue
 
-    resolveImports(component.name, component.type as ExportType, component.path, matched.original)
+      resolveImports(component.name, component.type as ExportType, component.path, matched.original)
+    }
   }
   code.prepend(`${imports.join('\n')}\n`)
 

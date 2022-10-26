@@ -1,4 +1,4 @@
-export const CompB = () => { 
+export const CompB = () => {
   return (
     <div>CompB</div>
   )

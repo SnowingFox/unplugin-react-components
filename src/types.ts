@@ -2,8 +2,27 @@ import type MagicString from 'magic-string'
 import type { FilterPattern } from '@rollup/pluginutils'
 
 export interface Options {
+  /**
+   * Provide path which will be transformed
+   *
+   * @default process.cwd()
+   */
   rootDir?: string
+
+  /**
+   * Should generate d.ts file
+   *
+   * @default false
+   */
   dts?: boolean | Partial<Omit<GenerateDtsOptions, 'components'>>
+
+  /**
+   * Should generate d.ts file
+   *
+   * @default true
+   */
+  local?: boolean
+
   /**
    * RegExp or glob to match files to be transformed
    */
@@ -36,17 +55,16 @@ export interface ComponentsContext {
   type: ExportType | 'Declaration'
 }
 
-export type ResolverReturnType = {
+export interface ResolverReturnType {
   name: string
   from: string
   type: ExportType
-}[]
+  originalName: string
+}
 
-type MaybePromise<T> = Promise<T> | T
+export type ResolverComponent = () => ResolverReturnType[] | Promise<ResolverReturnType[]>
 
-export type ResolverComponent = () => MaybePromise<ResolverReturnType>
-
-export type Resolvers = ResolverComponent[]
+export type Resolvers = Promise<ResolverComponent>[] | ResolverComponent[]
 
 export type Components = Set<ComponentsContext>
 
@@ -56,6 +74,7 @@ export interface TransformOptions {
   components: Components
   rootDir: string
   resolvers: Resolvers
+  local: boolean
 }
 
 export interface GenerateDtsOptions {
@@ -63,12 +82,13 @@ export interface GenerateDtsOptions {
   rootPath: string
   filename: string
   resolvers: Resolvers
+  local: boolean
 }
 
 export interface SearchGlobOptions {
   rootPath: string
 }
 
-export interface MuiResolverOptions {
-  suffix?: boolean | string
+export interface BaseResolverOptions {
+  prefix?: boolean | string
 }

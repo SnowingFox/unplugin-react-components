@@ -1,19 +1,14 @@
 import './App.css'
-import { CompA } from './CompA'
 
 function App() {
-  const renderContent = <Box>
-    <CompA />
-    <CompA />
-    <Button variant="text">Text</Button>
-    <Button variant="contained">Contained</Button>
-    <Button variant="outlined">Outlined</Button>
-    <CompB />
-    <CompC />
-  </Box>
   return (
     <div className="App">
-      {renderContent}
+      <Button variant={'contained'}>hi mui</Button>
+      <AntProgress percent={30} />
+      <AntSkeleton />
+      <AntTooltip title="prompt text">
+        <span>Tooltip will show on mouse enter.</span>
+      </AntTooltip>
     </div>
   )
 }

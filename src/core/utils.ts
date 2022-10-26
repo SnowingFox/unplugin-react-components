@@ -32,6 +32,7 @@ export function resolveOptions(options: Options = {}): Required<Options> {
     include: [/\.[j|t]sx$/],
     exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/],
     resolvers: options.resolvers || [],
+    local: typeof options.local === 'boolean' ? options.local : true,
     ...options,
   }
 }

@@ -1,0 +1,35 @@
+import { importModule } from 'local-pkg'
+import { isCapitalCase } from '../utils'
+import type { BaseResolverOptions, ResolverReturnType } from '../../types'
+
+interface CreateResolverOptions {
+  prefix: string
+  module: string
+  exclude?: (name: string) => boolean
+}
+
+export function createResolver<T extends BaseResolverOptions>(
+  _options: CreateResolverOptions,
+) {
+  return async (options: T = {} as T) => {
+    const { prefix = 'Ant' } = options
+
+    const pkgs = await importModule(_options.module)
+
+    const components: ResolverReturnType[] = Object.keys(pkgs)
+      .filter((item) => {
+        if (_options.exclude)
+          return isCapitalCase(item) && _options.exclude(item)
+
+        return isCapitalCase(item)
+      })
+      .map(item => ({
+        name: `${typeof prefix === 'string' ? prefix : ''}${item}`,
+        originalName: typeof prefix === 'string' ? item.replace(prefix, '') : item,
+        from: _options.module,
+        type: 'Export',
+      }))
+
+    return () => components
+  }
+}

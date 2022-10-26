@@ -14,14 +14,14 @@ export default createUnplugin<Options>((options) => {
     options.include || [/\.[j|t]sx$/],
     options.exclude || [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/],
   )
-
   const searchGlobResult = searchGlob({ rootPath: (options.dts as any)?.rootPath || options.rootDir! })
   const dtsOptions = {
     components: searchGlobResult,
     filename: (options.dts as GenerateDtsOptions)?.filename || 'components',
     rootPath: (options.dts as GenerateDtsOptions)?.rootPath || options.rootDir!,
-    resolvers: options.resolvers!,
-  }
+    local: options.local,
+    resolvers: options.resolvers,
+  } as GenerateDtsOptions
 
   if (options.dts === true)
     generateDts({ ...dtsOptions })
@@ -39,6 +39,7 @@ export default createUnplugin<Options>((options) => {
         components: searchGlobResult,
         rootDir: options.rootDir!,
         resolvers: options.resolvers!,
+        local: options.local!,
         id,
       }
       return await transform(context)
