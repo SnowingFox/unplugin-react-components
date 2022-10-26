@@ -1,4 +1,4 @@
-export const CompA: React.FC = () => {
+export const CompA = () => {
   return (
     <div>CompA</div>
   )
