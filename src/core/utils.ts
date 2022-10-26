@@ -3,6 +3,10 @@ import type { ComponentsContext, ExportType, ImportInfo, Options } from '../type
 export const isExportComponent = (component: ComponentsContext | ExportType) =>
   typeof component === 'string' ? component === 'Export' : component.type === 'Export'
 
+export const isCapitalCase = (code: string) => {
+  const ascii = code[0].charCodeAt(0)
+  return ascii >= 65 && ascii <= 90
+}
 /**
  * Replace backslash to slash
  */

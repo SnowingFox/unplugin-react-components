@@ -90,13 +90,10 @@
     "@emotion/styled": "^11.10.4",
     "@rollup/pluginutils": "^5.0.2",
     "chokidar": "^3.5.3",
-    "debug": "^4.3.4",
     "estree-walker": "^3.0.1",
     "fast-glob": "^3.2.12",
     "local-pkg": "^0.4.2",
     "magic-string": "^0.26.7",
-    "minimatch": "^5.1.0",
-    "resolve": "^1.22.1",
     "unplugin": "^0.9.6"
   },
   "devDependencies": {

@@ -36,7 +36,15 @@ export interface ComponentsContext {
   type: ExportType | 'Declaration'
 }
 
-export type ResolverComponent = (componentName: string) => { name: string; from: string; type: ExportType }
+export type ResolverReturnType = {
+  name: string
+  from: string
+  type: ExportType
+}[]
+
+type MaybePromise<T> = Promise<T> | T
+
+export type ResolverComponent = () => MaybePromise<ResolverReturnType>
 
 export type Resolvers = ResolverComponent[]
 
@@ -54,8 +62,13 @@ export interface GenerateDtsOptions {
   components: Components
   rootPath: string
   filename: string
+  resolvers: Resolvers
 }
 
 export interface SearchGlobOptions {
   rootPath: string
+}
+
+export interface MuiResolverOptions {
+  suffix?: boolean | string
 }

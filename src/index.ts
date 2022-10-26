@@ -20,7 +20,9 @@ export default createUnplugin<Options>((options) => {
     components: searchGlobResult,
     filename: (options.dts as GenerateDtsOptions)?.filename || 'components',
     rootPath: (options.dts as GenerateDtsOptions)?.rootPath || options.rootDir!,
+    resolvers: options.resolvers!,
   }
+
   if (options.dts === true)
     generateDts({ ...dtsOptions })
   else if (typeof options.dts === 'object')
@@ -39,7 +41,7 @@ export default createUnplugin<Options>((options) => {
         resolvers: options.resolvers!,
         id,
       }
-      return transform(context)
+      return await transform(context)
     },
   }
 })

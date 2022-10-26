@@ -1,28 +1,11 @@
-# unplugin-starter
+# unplugin-react-components
 
-[![NPM version](https://img.shields.io/npm/v/unplugin-starter?color=a1b858&label=)](https://www.npmjs.com/package/unplugin-starter)
-
-Starter template for [unplugin](https://github.com/unjs/unplugin).
-
-## Template Usage
-
-To use this template, clone it down using:
-
-```bash
-npx degit antfu/unplugin-starter my-unplugin
-```
-
-And do a global replace of `unplugin-starter` with your plugin name.
-
-Then you can start developing your unplugin 🔥
-
-To test your plugin, run: `pnpm run dev`
-To release a new version, run: `pnpm run release`
+[![NPM version](https://img.shields.io/npm/v/unplugin-react-components?color=a1b858&label=)](https://www.npmjs.com/package/unplugin-react-components)
 
 ## Install
 
 ```bash
-npm i unplugin-starter
+npm i unplugin-react-components
 ```
 
 <details>

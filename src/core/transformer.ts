@@ -1,9 +1,10 @@
 import type { ExportType, TransformOptions } from '../types'
 import { isExportComponent, stringifyImport } from './utils'
+import { getResolversResult } from './resolvers'
 
 const reactComponentRE = /_jsxDEV\(([^"][^React\.]\w+)/g
 
-export function transform(options: TransformOptions) {
+export async function transform(options: TransformOptions) {
   let index = 0
   const { code, id, components, resolvers } = options
 
@@ -43,14 +44,14 @@ export function transform(options: TransformOptions) {
 
     importsName.push(name)
   }
+  const resolversResult = await getResolversResult(resolvers)
 
   for (const matched of matches) {
-    resolvers.forEach((resolver) => {
-      const result = resolver(matched.name)
-      if (!result)
-        return
-
-      resolveImports(result.name, result.type, result.from, matched.original)
+    resolversResult.forEach((resolver) => {
+      resolver.forEach((item) => {
+        if (item.name === matched.name)
+          resolveImports(item.name, item.type, item.from, matched.original)
+      })
     })
 
     const component = Array.from(components).find(item => item.name === matched.name)
@@ -59,7 +60,6 @@ export function transform(options: TransformOptions) {
 
     resolveImports(component.name, component.type as ExportType, component.path, matched.original)
   }
-
   code.prepend(`${imports.join('\n')}\n`)
 
   return code.toString()

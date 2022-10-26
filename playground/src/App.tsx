@@ -1,9 +1,8 @@
 import './App.css'
-import { Button } from '@mui/material'
 import { CompA } from './CompA'
 
 function App() {
-  const renderContent = <>
+  const renderContent = <Box>
     <CompA />
     <CompA />
     <Button variant="text">Text</Button>
@@ -11,7 +10,7 @@ function App() {
     <Button variant="outlined">Outlined</Button>
     <CompB />
     <CompC />
-  </>
+  </Box>
   return (
     <div className="App">
       {renderContent}

@@ -2,6 +2,7 @@ import react from '@vitejs/plugin-react'
 import Inspect from 'vite-plugin-inspect'
 import { defineConfig } from 'vite'
 import Components from 'unplugin-react-components/vite'
+import { MuiResolver } from '../src/core/resolvers/mui'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -10,10 +11,9 @@ export default defineConfig({
     Components({
       dts: true,
       resolvers: [
-        (name) => {
-          if (name === 'Button')
-            return { name: 'Button', from: '@mui/material', type: 'Export' }
-        },
+        MuiResolver({
+          suffix: false,
+        }),
       ],
     }),
     Inspect(),
