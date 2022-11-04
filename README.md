@@ -17,24 +17,10 @@ import Components from 'unplugin-react-components/vite'
 
 export default defineConfig({
   plugins: [
-    Components({ /* options */ }),
-  ],
-})
-```
-
-Example: [`playground/`](./playground/)
-
-
-```ts
-// rollup.config.js
-import Components from 'unplugin-react-components/rollup'
-
-export default {
-  plugins: [
     React(),
     Components({ /* options */ }),
   ],
-}
+})
 ```
 
 <br></details>
