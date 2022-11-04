@@ -5,20 +5,22 @@
   "packageManager": "pnpm@7.1.1",
   "description": "On-demand components auto importing for React",
   "license": "MIT",
-  "homepage": "https://github.com/antfu/unplugin-starter#readme",
+  "homepage": "https://github.com/snowingfox/unplugin-react-components#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/antfu/unplugin-starter.git"
+    "url": "git+https://github.com/snowingfox/unplugin-react-components.git"
   },
   "bugs": {
-    "url": "https://github.com/antfu/unplugin-starter/issues"
+    "url": "https://github.com/snowingfox/unplugin-react-components/issues"
   },
   "keywords": [
     "unplugin",
     "vite",
     "webpack",
     "rollup",
-    "transform"
+    "transform",
+    "react",
+    "components"
   ],
   "exports": {
     ".": {
