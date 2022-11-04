@@ -99,6 +99,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^0.27.0",
     "@types/node": "^18.8.0",
+    "antd": "^4.23.6",
     "bumpp": "^8.2.1",
     "chalk": "^5.0.1",
     "eslint": "8.15.0",
