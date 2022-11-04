@@ -1,4 +1,5 @@
 import fs from 'fs'
+import { resolve } from 'path'
 import fg from 'fast-glob'
 import { parse } from '@babel/parser'
 import type { BaseNode } from 'estree-walker'
@@ -14,10 +15,11 @@ export function searchGlob(options: SearchGlobOptions): Components {
     ignore: ['node_modules'],
     cwd: rootPath,
   })
+
   const components: Components = new Set()
 
   for (const file of files) {
-    const code = fs.readFileSync(file, { encoding: 'utf-8' })
+    const code = fs.readFileSync(resolve(rootPath, file), { encoding: 'utf-8' })
     const program = parse(code, {
       sourceType: 'module',
       plugins: [

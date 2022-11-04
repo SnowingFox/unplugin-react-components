@@ -2,7 +2,7 @@ import type { ExportType, TransformOptions } from '../types'
 import { isExportComponent, stringifyImport } from './utils'
 import { getResolversResult } from './resolvers'
 
-const reactComponentRE = /_jsxDEV\(([^"][^React\.]\w+)/g
+const reactComponentRE = /_jsxDEV\(([^"][^React\.]\w+|[a-zA-Z]+|)/g
 
 export async function transform(options: TransformOptions) {
   let index = 0
@@ -57,12 +57,14 @@ export async function transform(options: TransformOptions) {
 
     if (local) {
       const component = Array.from(components).find(item => item.name === matched.name)
+
       if (!component)
         continue
 
       resolveImports(component.name, component.type as ExportType, component.path, matched.original)
     }
   }
+
   code.prepend(`${imports.join('\n')}\n`)
 
   return code.toString()
