@@ -100,54 +100,7 @@ test('ignore local components', async () => {
     resolvers: [
       AntdResolver(),
     ],
-  })).toMatchInlineSnapshot(`
-    "import { Progress as _unplugin_react_Progress_0 } from 'antd'
-    import { Tooltip as _unplugin_react_Tooltip_1 } from 'antd'
-
-      import { jsxDEV as _jsxDEV } from \\"react/jsx-dev-runtime\\";
-      function App() {
-        return /*#__PURE__*/_jsxDEV(\\"div\\", {
-          className: \\"App\\",
-          children: [/*#__PURE__*/_jsxDEV(A, {
-            variant: 'contained',
-            children: \\"hi mui\\"
-          }, void 0, false, {
-            fileName: _jsxFileName,
-            lineNumber: 6,
-            columnNumber: 7
-          }, this), /*#__PURE__*/_jsxDEV(_unplugin_react_Progress_0, {
-            percent: 30
-          }, void 0, false, {
-            fileName: _jsxFileName,
-            lineNumber: 7,
-            columnNumber: 7
-          }, this), /*#__PURE__*/_jsxDEV(A, {}, void 0, false, {
-            fileName: _jsxFileName,
-            lineNumber: 8,
-            columnNumber: 7
-          }, this), /*#__PURE__*/_jsxDEV(_unplugin_react_Tooltip_1, {
-            title: \\"prompt text\\",
-            children: /*#__PURE__*/_jsxDEV(\\"span\\", {
-              children: \\"Tooltip will show on mouse enter.\\"
-            }, void 0, false, {
-              fileName: _jsxFileName,
-              lineNumber: 10,
-              columnNumber: 9
-            }, this)
-          }, void 0, false, {
-            fileName: _jsxFileName,
-            lineNumber: 9,
-            columnNumber: 7
-          }, this)]
-        }, void 0, true, {
-          fileName: _jsxFileName,
-          lineNumber: 5,
-          columnNumber: 5
-        }, this);
-      }
-      _c = App;
-      export default App;"
-  `)
+  })).toMatchSnapshot()
 })
 
 test('generate components.d.ts', async () => {
