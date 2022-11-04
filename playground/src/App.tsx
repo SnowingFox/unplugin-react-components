@@ -9,6 +9,7 @@ function App() {
       <AntTooltip title="prompt text">
         <span>Tooltip will show on mouse enter.</span>
       </AntTooltip>
+      <CompC />
     </div>
   )
 }
