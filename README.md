@@ -109,7 +109,7 @@ Components({
       { name: 'MikForm',  from: 'formik', type: 'Export', orignalName: 'Form' }
       /**
        * in App.tsx
-       * import XXX from 'ui'
+       * import XXX fro
        *
        * in components.d.ts
        * const Component: typeof import('ui')['default']
@@ -120,3 +120,20 @@ Components({
   ],
 })
 ```
+
+or you can use `createResolver`
+
+```ts
+import { createResolver } from 'unplugin-react-components'
+
+Components({
+  resolvers: [
+    createResolver({
+      module: 'react-ui',
+      prefix: 'RUi',
+      exclude: (name) => {
+        return name.startsWith('Excluded')
+      },
+    })
+  ]
+})
