@@ -8,7 +8,7 @@ interface CreateResolverOptions {
   exclude?: (name: string) => boolean
 }
 
-export function createResolver<T extends BaseResolverOptions>(
+export function createResolver<T extends BaseResolverOptions = BaseResolverOptions>(
   _options: CreateResolverOptions,
 ) {
   return async (options: T = {} as T) => {
