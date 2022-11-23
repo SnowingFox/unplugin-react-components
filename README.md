@@ -106,7 +106,7 @@ Components({
        * const MikForm: typeof import('formik')['Form']
        *
        * **/
-      { name: 'MikForm',  from: 'formik', type: 'Export', orignalName: 'Form' }
+      { name: 'MikForm',  from: 'formik', type: 'Export', orignalName: 'Form' },
       /**
        * in App.tsx
        * import XXX fro
