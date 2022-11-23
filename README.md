@@ -22,12 +22,13 @@ export default defineConfig({
   ],
 })
 ```
-
-<br></details>
+<br>
+</details>
 
 
 <details>
-<summary>Webpack</summary><br>
+<summary>Webpack</summary>
+</details>
 
 ```ts
 // webpack.config.js
@@ -137,3 +138,27 @@ Components({
     })
   ]
 })
+```
+
+## sideEffects
+
+Assume you are using antd
+```tsx
+export default function App() {
+  return (
+      <Button />
+  )
+}
+```
+
+we will transform this into
+```tsx
+import { Button } from 'antd'
+import 'antd/es/button/style/index.css'
+
+export default function App() {
+  return (
+    <Button />
+  )
+}
+```
