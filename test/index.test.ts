@@ -2,16 +2,15 @@ import { resolve } from 'path'
 import { readFileSync } from 'fs'
 import { expect, test } from 'vitest'
 import MagicString from 'magic-string'
-import { AntdResolver } from '../src/core/resolvers/antd'
+import { AntdResolver, generateDts, searchGlob, transform } from '../src'
 import { slash } from '../src/core/utils'
-import { searchGlob } from '../src/core/searchGlob'
-import { generateDts, transform } from '../src'
 
 const rootPath = slash(`${resolve(__dirname)}/fixtures`)
 const searchGlobResult = searchGlob({
   rootPath,
 })
-const id = 'D:/Dev/unplugin/unplugin-react-components/test/fixtures/App.tsx'
+
+const id = slash(`${process.cwd()}/test/fixtures/App.tsx`)
 
 const code = `
   import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
@@ -104,7 +103,7 @@ test('ignore local components', async () => {
 })
 
 test('generate components.d.ts', async () => {
-  generateDts({
+  await generateDts({
     components: searchGlobResult,
     filename: 'components',
     local: true,

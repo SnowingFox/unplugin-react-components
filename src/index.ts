@@ -48,6 +48,7 @@ export default createUnplugin<Options>((options = {}) => {
         local: options.local!,
         id,
       }
+
       return await transform(context)
     },
   }

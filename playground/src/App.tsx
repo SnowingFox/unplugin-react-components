@@ -5,6 +5,8 @@ function App() {
     <div className="App">
       <Button variant={'contained'}>hi mui</Button>
       <AntProgress percent={30} />
+      <AntProgress percent={30} />
+
       <AntSkeleton />
       <AntTooltip title="prompt text">
         <span>Tooltip will show on mouse enter.</span>

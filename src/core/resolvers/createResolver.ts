@@ -6,6 +6,7 @@ interface CreateResolverOptions {
   prefix: string
   module: string
   exclude?: (name: string) => boolean
+  style?: boolean
 }
 
 export function createResolver<T extends BaseResolverOptions = BaseResolverOptions>(
@@ -23,12 +24,19 @@ export function createResolver<T extends BaseResolverOptions = BaseResolverOptio
 
         return isCapitalCase(item)
       })
-      .map(item => ({
-        name: `${typeof prefix === 'string' ? prefix : ''}${item}`,
-        originalName: typeof prefix === 'string' ? item.replace(prefix, '') : item,
-        from: _options.module,
-        type: 'Export',
-      }))
+      .map((item) => {
+        const component: ResolverReturnType = {
+          name: `${typeof prefix === 'string' ? prefix : ''}${item}`,
+          originalName: typeof prefix === 'string' ? item.replace(prefix, '') : item,
+          from: _options.module,
+          type: 'Export',
+        }
+
+        if (_options.style)
+          component.style = `${_options.module}/es/${component.originalName.toLowerCase()}/style/index.css`
+
+        return component
+      })
 
     return () => components
   }

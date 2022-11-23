@@ -60,6 +60,7 @@ export interface ResolverReturnType {
   from: string
   type: ExportType
   originalName: string
+  style?: string
 }
 
 export type ResolverComponent = () => ResolverReturnType[] | Promise<ResolverReturnType[]>

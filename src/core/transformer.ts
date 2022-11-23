@@ -2,7 +2,7 @@ import type { ExportType, TransformOptions } from '../types'
 import { isExportComponent, stringifyImport } from './utils'
 import { getResolversResult } from './resolvers'
 
-const reactComponentRE = /_jsxDEV\(([^"][^React\.]\w+|[a-zA-Z]+|)/g
+export const reactComponentRE = /_jsxDEV\(([^"][^React\.]\w+|[a-zA-Z]+|)/g
 
 export async function transform(options: TransformOptions) {
   let index = 0
@@ -17,7 +17,7 @@ export async function transform(options: TransformOptions) {
   const importsName: string[] = []
   const imports: string[] = []
 
-  const resolveImports = (name: string, type: ExportType, path: string, original: string) => {
+  const resolveImports = (name: string, type: ExportType, path: string, original: string, style?: string) => {
     if (importsName.includes(name))
       return
 
@@ -42,6 +42,9 @@ export async function transform(options: TransformOptions) {
       }))
     }
 
+    if (style)
+      imports.push(stringifyImport(style))
+
     importsName.push(name)
   }
 
@@ -51,7 +54,7 @@ export async function transform(options: TransformOptions) {
     resolversResult?.forEach((resolver) => {
       resolver.forEach((item) => {
         if (item.name === matched.name)
-          resolveImports(item.originalName, item.type, item.from, matched.original)
+          resolveImports(item.originalName, item.type, item.from, matched.original, item.style)
       })
     })
 
