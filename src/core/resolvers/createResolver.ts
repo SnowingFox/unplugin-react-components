@@ -13,7 +13,12 @@ export function createResolver<T extends BaseResolverOptions = BaseResolverOptio
   _options: CreateResolverOptions,
 ) {
   return async (options: T = {} as T) => {
-    const { prefix = 'Ant' } = options
+    let prefix: string | undefined
+
+    if (typeof options.prefix === 'boolean' && options.prefix)
+      prefix = 'Ant'
+    else if (typeof options.prefix === 'string')
+      prefix = options.prefix
 
     const pkgs = await importModule(_options.module)
 
