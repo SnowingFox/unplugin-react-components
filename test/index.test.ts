@@ -86,7 +86,57 @@ test('play with resolver', async () => {
     ],
     local: true,
     rootDir: slash(`${resolve(__dirname)}/fixtures`),
-  })).toMatchSnapshot()
+  })).toMatchInlineSnapshot(`
+    "import { A as _unplugin_react_A_0 } from 'D:/Dev/unplugin/unplugin-react-components/test/fixtures/A.tsx'
+    import { Progress as _unplugin_react_Progress_1 } from 'antd'
+    import 'antd/es/progress/style/index.css'
+    import { Tooltip as _unplugin_react_Tooltip_2 } from 'antd'
+    import 'antd/es/tooltip/style/index.css'
+
+      import { jsxDEV as _jsxDEV } from \\"react/jsx-dev-runtime\\";
+      function App() {
+        return /*#__PURE__*/_jsxDEV(\\"div\\", {
+          className: \\"App\\",
+          children: [/*#__PURE__*/_jsxDEV(_unplugin_react_A_0, {
+            variant: 'contained',
+            children: \\"hi mui\\"
+          }, void 0, false, {
+            fileName: _jsxFileName,
+            lineNumber: 6,
+            columnNumber: 7
+          }, this), /*#__PURE__*/_jsxDEV(_unplugin_react_Progress_1, {
+            percent: 30
+          }, void 0, false, {
+            fileName: _jsxFileName,
+            lineNumber: 7,
+            columnNumber: 7
+          }, this), /*#__PURE__*/_jsxDEV(_unplugin_react_A_0, {}, void 0, false, {
+            fileName: _jsxFileName,
+            lineNumber: 8,
+            columnNumber: 7
+          }, this), /*#__PURE__*/_jsxDEV(_unplugin_react_Tooltip_2, {
+            title: \\"prompt text\\",
+            children: /*#__PURE__*/_jsxDEV(\\"span\\", {
+              children: \\"Tooltip will show on mouse enter.\\"
+            }, void 0, false, {
+              fileName: _jsxFileName,
+              lineNumber: 10,
+              columnNumber: 9
+            }, this)
+          }, void 0, false, {
+            fileName: _jsxFileName,
+            lineNumber: 9,
+            columnNumber: 7
+          }, this)]
+        }, void 0, true, {
+          fileName: _jsxFileName,
+          lineNumber: 5,
+          columnNumber: 5
+        }, this);
+      }
+      _c = App;
+      export default App;"
+  `)
 })
 
 test('ignore local components', async () => {

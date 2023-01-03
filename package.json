@@ -63,7 +63,7 @@
     "build": "tsup",
     "dev": "tsup --watch src",
     "build:fix": "esno scripts/postbuild.ts",
-    "lint": "eslint .",
+    "lint": "eslint --fix --ext .js,.ts,.tsx src/**/**",
     "play": "npm -C playground run dev",
     "prepublishOnly": "npm run build",
     "release": "bumpp && npm publish",
