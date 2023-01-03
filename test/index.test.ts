@@ -1,5 +1,4 @@
 import { resolve } from 'path'
-import { readFileSync } from 'fs'
 import { expect, test } from 'vitest'
 import MagicString from 'magic-string'
 import { AntdResolver, generateDts, searchGlob, transform } from '../src'
@@ -104,7 +103,7 @@ test('ignore local components', async () => {
 })
 
 test('generate components.d.ts', async () => {
-  await generateDts({
+  const dts = await generateDts({
     components: searchGlobResult,
     filename: 'components',
     local: true,
@@ -112,7 +111,5 @@ test('generate components.d.ts', async () => {
     resolvers: [],
   })
 
-  const generated = readFileSync(`${rootPath}/components.d.ts`, { encoding: 'utf-8' })
-
-  expect(generated).toMatchSnapshot()
+  expect(dts).toMatchSnapshot()
 })

@@ -132,7 +132,7 @@ declare global{
 	const TreeSelect: typeof import('antd')['TreeSelect']
 	const Typography: typeof import('antd')['Typography']
 	const Upload: typeof import('antd')['Upload']
-}"
+"
 `;
 
 exports[`ignore local components 1`] = `

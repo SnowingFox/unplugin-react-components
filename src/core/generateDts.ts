@@ -37,4 +37,6 @@ export async function generateDts(options: GenerateDtsOptions) {
   })
 
   writeFileSync(`${rootPath}/${filename}.d.ts`, `${dts}}`, { encoding: 'utf-8' })
+
+  return dts
 }
