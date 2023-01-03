@@ -58,20 +58,21 @@ const code = `
   export default App;`
 
 test('test searchGlob', async () => {
-  expect(searchGlobResult).toMatchInlineSnapshot(`
-      Set {
-        {
-          "name": "A",
-          "path": "D:/Dev/unplugin/unplugin-react-components/test/fixtures/A.tsx",
-          "type": "Export",
-        },
-        {
-          "name": "App",
-          "path": "D:/Dev/unplugin/unplugin-react-components/test/fixtures/App.tsx",
-          "type": "Export",
-        },
-      }
-    `)
+  const arr = Array.from(searchGlobResult).map(i => ({ ...i, path: 'searchGlob' }))
+  expect(arr).toMatchInlineSnapshot(`
+    [
+      {
+        "name": "A",
+        "path": "searchGlob",
+        "type": "Export",
+      },
+      {
+        "name": "App",
+        "path": "searchGlob",
+        "type": "Export",
+      },
+    ]
+  `)
 })
 
 test('play with resolver', async () => {
