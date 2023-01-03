@@ -88,8 +88,7 @@ test('play with resolver', async () => {
     rootDir: slash(`${resolve(__dirname)}/fixtures`),
   })
 
-  if (transformed.trim().startsWith('""'))
-    transformed.replace('""', '"')
+  transformed.replace('""', '"')
 
   expect(transformed).toMatchSnapshot()
 })
