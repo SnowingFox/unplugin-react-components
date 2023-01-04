@@ -10,7 +10,7 @@ export function changeREOnBuildStart() {
 
 export async function transform(options: TransformOptions) {
   let index = 0
-  const { code, id, components, resolvers, local } = options
+  const { code, id, components, resolvers, local, mode } = options
 
   const matches = Array.from(code.original.matchAll(reactComponentRE)).map(item => ({
     name: item[1],
@@ -28,7 +28,7 @@ export async function transform(options: TransformOptions) {
     const replacedName = `_unplugin_react_${name}_${index}`
     index++
 
-    code.replaceAll(original, `_jsxDEV(${replacedName}`)
+    code.replaceAll(original, `${mode === 'dev' ? '_jsxDEV' : 'jsx'}(${replacedName}`)
 
     const importedPath = path
 

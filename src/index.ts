@@ -46,6 +46,7 @@ export default createUnplugin<Options>((options = {}) => {
         rootDir: options.rootDir!,
         resolvers: options.resolvers!,
         local: options.local!,
+        mode: options.mode!,
         id,
       }
 

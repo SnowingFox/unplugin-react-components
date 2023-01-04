@@ -83,6 +83,7 @@ export interface TransformOptions {
   rootDir: string
   resolvers: Resolvers
   local: boolean
+  mode: Options['mode']
 }
 
 export interface GenerateDtsOptions {
