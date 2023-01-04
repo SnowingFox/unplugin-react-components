@@ -85,7 +85,7 @@ test('play with resolver', async () => {
       }),
     ],
     local: true,
-    rootDir: slash(`${resolve(__dirname)}/fixtures`),
+    rootDir: '',
   })
 
   transformed.replace('""', '"')

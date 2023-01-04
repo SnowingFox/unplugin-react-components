@@ -2,7 +2,11 @@ import type { ExportType, TransformOptions } from '../types'
 import { isExportComponent, stringifyImport } from './utils'
 import { getResolversResult } from './resolvers'
 
-export const reactComponentRE = /_jsxDEV\(([^"][^React\.]\w+|[a-zA-Z]+|)/g
+export let reactComponentRE = /_jsxDEV\(([^"][^React\.]\w+|[a-zA-Z]+|)/g
+
+export function changeREOnBuildStart() {
+  reactComponentRE = /jsx\(([^"][^React\.]\w+|[a-zA-Z]+|)/g
+}
 
 export async function transform(options: TransformOptions) {
   let index = 0

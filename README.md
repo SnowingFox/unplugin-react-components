@@ -65,6 +65,15 @@ export function App() {
 }
 ```
 
+## Dev | Prod
+Due to the compiled code of react in `dev` mode is different of `prod` mode, so before build your app, please set the mode to `prod`
+
+```ts
+Components({
+  mode: 'prod' // deafult: dev
+})
+```
+
 ## TypeScript
 ```ts
 Components({

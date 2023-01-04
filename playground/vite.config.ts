@@ -11,11 +11,14 @@ export default defineConfig({
     Components({
       dts: true,
       local: true,
+      mode: 'prod',
       resolvers: [
         MuiResolver({
           prefix: false,
         }),
-        AntdResolver(),
+        AntdResolver({
+          prefix: 'Ant',
+        }),
       ],
     }),
     Inspect(),

@@ -4,6 +4,7 @@ function App() {
   return (
     <div className="App">
       <Button variant={'contained'}>hi mui</Button>
+      <Box />
       <AntProgress percent={30} />
       <AntProgress percent={30} />
 
