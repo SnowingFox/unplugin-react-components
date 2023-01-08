@@ -11,7 +11,6 @@ export default defineConfig({
     Components({
       dts: true,
       local: true,
-      mode: 'prod',
       resolvers: [
         MuiResolver({
           prefix: false,
@@ -21,6 +20,8 @@ export default defineConfig({
         }),
       ],
     }),
-    Inspect(),
+    Inspect({
+      build: true,
+    }),
   ],
 })

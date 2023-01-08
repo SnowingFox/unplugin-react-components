@@ -38,13 +38,6 @@ export interface Options {
    *
    */
   resolvers?: Resolvers
-
-  /*
-  * decide is dev or prod mode so that can right to parse react code.
-  *
-  * @default 'dev'
-  */
-  mode?: 'dev' | 'prod'
 }
 
 export interface ImportInfo {
@@ -83,7 +76,6 @@ export interface TransformOptions {
   rootDir: string
   resolvers: Resolvers
   local: boolean
-  mode: Options['mode']
 }
 
 export interface GenerateDtsOptions {

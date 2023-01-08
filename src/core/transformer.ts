@@ -2,15 +2,23 @@ import type { ExportType, TransformOptions } from '../types'
 import { isExportComponent, stringifyImport } from './utils'
 import { getResolversResult } from './resolvers'
 
-export let reactComponentRE = /_jsxDEV\(([^"][^React\.]\w+|[a-zA-Z]+|)/g
+const reactDevRE = /_jsxDEV\(([^"][^React\.]\w+|[a-zA-Z]+|)/g
+const reactBuildRE = /_jsx\(([^"][^React\.]\w+|[a-zA-Z]+|)/g
 
-export function changeREOnBuildStart() {
-  reactComponentRE = /jsx\(([^"][^React\.]\w+|[a-zA-Z]+|)/g
-}
+let reactComponentRE: RegExp
 
 export async function transform(options: TransformOptions) {
   let index = 0
-  const { code, id, components, resolvers, local, mode } = options
+  const { code, id, components, resolvers, local } = options
+  let isDevMode = true
+
+  if (code.original.includes('react/jsx-dev-runtime')) {
+    reactComponentRE = reactDevRE
+  }
+  else {
+    reactComponentRE = reactBuildRE
+    isDevMode = false
+  }
 
   const matches = Array.from(code.original.matchAll(reactComponentRE)).map(item => ({
     name: item[1],
@@ -28,7 +36,7 @@ export async function transform(options: TransformOptions) {
     const replacedName = `_unplugin_react_${name}_${index}`
     index++
 
-    code.replaceAll(original, `${mode === 'dev' ? '_jsxDEV' : 'jsx'}(${replacedName}`)
+    code.replaceAll(original, `${isDevMode ? '_jsxDEV' : '_jsx'}(${replacedName}`)
 
     const importedPath = path
 

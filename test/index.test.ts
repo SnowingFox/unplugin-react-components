@@ -117,3 +117,40 @@ test('generate components.d.ts', async () => {
 
   expect(dts).toMatchSnapshot()
 })
+
+test('it should work after bundle.', async () => {
+  const code = `import "./App.css";
+import { jsx as _jsx } from "react/jsx-runtime";
+import { jsxs as _jsxs } from "react/jsx-runtime";
+function App() {
+  return /* @__PURE__ */ _jsxs("div", {
+    className: "App",
+    children: [/* @__PURE__ */ _jsx(Button, {
+      variant: "contained",
+      children: "hi mui"
+    }), /* @__PURE__ */ _jsx(Box, {}), /* @__PURE__ */ _jsx(AntProgress, {
+      percent: 30
+    }), /* @__PURE__ */ _jsx(AntProgress, {
+      percent: 30
+    }), /* @__PURE__ */ _jsx(AntSkeleton, {}), /* @__PURE__ */ _jsx(AntTooltip, {
+      title: "prompt text",
+      children: /* @__PURE__ */ _jsx("span", {
+        children: "Tooltip will show on mouse enter."
+      })
+    }), /* @__PURE__ */ _jsx(CompC, {})]
+  });
+}
+export default App;
+`
+
+  expect(await transform({
+    code: new MagicString(code),
+    id,
+    components: searchGlobResult,
+    local: false,
+    rootDir: slash(`${resolve(__dirname)}/fixtures`),
+    resolvers: [
+      AntdResolver(),
+    ],
+  })).toMatchSnapshot()
+})
