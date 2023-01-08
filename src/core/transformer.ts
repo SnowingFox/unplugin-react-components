@@ -4,6 +4,7 @@ import { getResolversResult } from './resolvers'
 
 const reactDevRE = /_jsxDEV\(([^"][^React\.]\w+|[a-zA-Z]+|)/g
 const reactBuildRE = /_jsx\(([^"][^React\.]\w+|[a-zA-Z]+|)/g
+const reactLatestBuildRE = /jsx\(([^"][^React\.]\w+|[a-zA-Z]+|)/g
 
 let reactComponentRE: RegExp
 
@@ -11,13 +12,20 @@ export async function transform(options: TransformOptions) {
   let index = 0
   const { code, id, components, resolvers, local } = options
   let isDevMode = true
+  let isLatestBundle = false
 
   if (code.original.includes('react/jsx-dev-runtime')) {
     reactComponentRE = reactDevRE
   }
   else {
-    reactComponentRE = reactBuildRE
     isDevMode = false
+    if (code.original.includes('_jsx')) {
+      reactComponentRE = reactBuildRE
+    }
+    else {
+      reactComponentRE = reactLatestBuildRE
+      isLatestBundle = true
+    }
   }
 
   const matches = Array.from(code.original.matchAll(reactComponentRE)).map(item => ({
@@ -36,7 +44,7 @@ export async function transform(options: TransformOptions) {
     const replacedName = `_unplugin_react_${name}_${index}`
     index++
 
-    code.replaceAll(original, `${isDevMode ? '_jsxDEV' : '_jsx'}(${replacedName}`)
+    code.replaceAll(original, `${isDevMode ? '_jsxDEV' : isLatestBundle ? 'jsx' : '_jsx'}(${replacedName}`)
 
     const importedPath = path
 

@@ -186,6 +186,40 @@ import 'antd/es/tooltip/style/index.css'
   export default App;"
 `;
 
+exports[`it should work after bundle. 1`] = `
+"import { Button as _unplugin_react_Button_0 } from 'antd'
+import 'antd/es/button/style/index.css'
+import { Progress as _unplugin_react_Progress_1 } from 'antd'
+import 'antd/es/progress/style/index.css'
+import { Skeleton as _unplugin_react_Skeleton_2 } from 'antd'
+import 'antd/es/skeleton/style/index.css'
+import { Tooltip as _unplugin_react_Tooltip_3 } from 'antd'
+import 'antd/es/tooltip/style/index.css'
+import \\"./App.css\\";
+import { jsx } from \\"react/jsx-runtime\\";
+import { jsxs} from \\"react/jsx-runtime\\";
+function App() {
+  return /* @__PURE__ */ jsxs(\\"div\\", {
+    className: \\"App\\",
+    children: [/* @__PURE__ */ jsx(_unplugin_react_Button_0, {
+      variant: \\"contained\\",
+      children: \\"hi mui\\"
+    }), /* @__PURE__ */ jsx(Box, {}), /* @__PURE__ */ jsx(_unplugin_react_Progress_1, {
+      percent: 30
+    }), /* @__PURE__ */ jsx(_unplugin_react_Progress_1, {
+      percent: 30
+    }), /* @__PURE__ */ jsx(_unplugin_react_Skeleton_2, {}), /* @__PURE__ */ jsx(_unplugin_react_Tooltip_3, {
+      title: \\"prompt text\\",
+      children: /* @__PURE__ */ jsx(\\"span\\", {
+        children: \\"Tooltip will show on mouse enter.\\"
+      })
+    }), /* @__PURE__ */ jsx(CompC, {})]
+  });
+}
+export default App;
+"
+`;
+
 exports[`play with resolver 1`] = `
 "import { A as _unplugin_react_A_0 } from 'D:/Dev/unplugin/unplugin-react-components/test/fixtures/A.tsx'
 import { Progress as _unplugin_react_Progress_1 } from 'antd'

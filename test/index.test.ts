@@ -120,24 +120,24 @@ test('generate components.d.ts', async () => {
 
 test('it should work after bundle.', async () => {
   const code = `import "./App.css";
-import { jsx as _jsx } from "react/jsx-runtime";
-import { jsxs as _jsxs } from "react/jsx-runtime";
+import { jsx } from "react/jsx-runtime";
+import { jsxs} from "react/jsx-runtime";
 function App() {
-  return /* @__PURE__ */ _jsxs("div", {
+  return /* @__PURE__ */ jsxs("div", {
     className: "App",
-    children: [/* @__PURE__ */ _jsx(Button, {
+    children: [/* @__PURE__ */ jsx(Button, {
       variant: "contained",
       children: "hi mui"
-    }), /* @__PURE__ */ _jsx(Box, {}), /* @__PURE__ */ _jsx(AntProgress, {
+    }), /* @__PURE__ */ jsx(Box, {}), /* @__PURE__ */ jsx(AntProgress, {
       percent: 30
-    }), /* @__PURE__ */ _jsx(AntProgress, {
+    }), /* @__PURE__ */ jsx(AntProgress, {
       percent: 30
-    }), /* @__PURE__ */ _jsx(AntSkeleton, {}), /* @__PURE__ */ _jsx(AntTooltip, {
+    }), /* @__PURE__ */ jsx(AntSkeleton, {}), /* @__PURE__ */ jsx(AntTooltip, {
       title: "prompt text",
-      children: /* @__PURE__ */ _jsx("span", {
+      children: /* @__PURE__ */ jsx("span", {
         children: "Tooltip will show on mouse enter."
       })
-    }), /* @__PURE__ */ _jsx(CompC, {})]
+    }), /* @__PURE__ */ jsx(CompC, {})]
   });
 }
 export default App;
