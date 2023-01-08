@@ -2,7 +2,7 @@ import { createUnplugin } from 'unplugin'
 import MagicString from 'magic-string'
 import { createFilter } from '@rollup/pluginutils'
 import type { GenerateDtsOptions, Options, TransformOptions } from './types'
-import { changeREOnBuildStart, transform } from './core/transformer'
+import { transform } from './core/transformer'
 import { searchGlob } from './core/searchGlob'
 import { generateDts } from './core/generateDts'
 import { resolveOptions } from './core/utils'
@@ -46,15 +46,10 @@ export default createUnplugin<Options>((options = {}) => {
         rootDir: options.rootDir!,
         resolvers: options.resolvers!,
         local: options.local!,
-        mode: options.mode!,
         id,
       }
 
       return await transform(context)
-    },
-    buildStart() {
-      if (options.mode === 'prod')
-        changeREOnBuildStart()
     },
   }
 })
